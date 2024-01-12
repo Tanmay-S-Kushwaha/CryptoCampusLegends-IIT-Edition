@@ -147,7 +147,9 @@ function animate(){
         if(moving) {
             movables.forEach((movable) => {
             movable.position.y += 3
-            })}
+            })}}
+    
+    
     else if (keys.a.pressed && lastKey === 'a') {
         for (let i =0; i < boundaries.length ; i++) {
             const boundary = boundaries[i]
@@ -167,8 +169,8 @@ function animate(){
             if(moving) {
             movables.forEach((movable) => {
             movable.position.x += 3
-            })}
-    }
+            })
+    }}
     else if (keys.s.pressed && lastKey === 's') {
         for (let i =0; i < boundaries.length ; i++) {
         const boundary = boundaries[i]
@@ -227,7 +229,7 @@ function animate(){
             movable.position.x -= 3
         })
     }
-}}}
+}}
 
 animate()
 
@@ -278,3 +280,7 @@ window.addEventListener('keyup' , (e) => {
         
     }
 })
+
+
+ 
+ 
