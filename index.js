@@ -20,7 +20,7 @@ class Boundary {
         this.height = 48
     }
     draw() {
-        c.fillStyle = 'red'
+        c.fillStyle = 'rgba(255,0,0,0)'
         c.fillRect(this.position.x , this.position.y , this.width , this.height)
     }
 }
@@ -50,6 +50,10 @@ image.src = './imgs/Pellet Town.png'
 
 const playerImage = new Image()
 playerImage.src = './imgs/playerDown.png'
+
+const foregroundimage = new Image()
+foregroundimage.src = './imgs/foregroundObjects.png'
+ 
 
 class Sprite {
     constructor({position , velocity , _image , frames = {max: 1}}) {
@@ -92,6 +96,13 @@ const background = new Sprite({
     },
     _image: image
 })
+const foreground = new Sprite({
+    position:{
+        x : offset.x ,
+        y : offset.y 
+    },
+    _image: foregroundimage
+})
 
 const keys = {
     w: {
@@ -108,7 +119,7 @@ const keys = {
     },
 }
 
-const movables = [background , ...boundaries]
+const movables = [background , ...boundaries,foreground]
 
 function rectangularCollision({ rectangle1 , rectangle2}) {
     return(
@@ -126,6 +137,7 @@ function animate(){
         boundary.draw()
     })
     player.draw()
+    foreground.draw()
     
     let moving = true
     if (keys.w.pressed && lastKey === 'w') {
@@ -188,26 +200,10 @@ function animate(){
             }}
         
         if(moving) {
-            for (let i =0; i < boundaries.length ; i++) {
-                const boundary = boundaries[i]
-                if (
-                    rectangularCollision({
-                        rectangle1: player,
-                        rectangle2: {...boundary , position: {
-                            x: boundary.position.x - 3,
-                            y: boundary.position.y 
-                        }}
-                    })
-                    ){
-                        moving = false
-                        break
-                    }}
-                
-                if(moving) {
             movables.forEach((movable) => {
             movable.position.y -= 3
         })}
-    }}
+    }
     else if (keys.d.pressed && lastKey === 'd') {
         for (let i =0; i < boundaries.length ; i++) {
             const boundary = boundaries[i]
