@@ -7,17 +7,17 @@ c.fillStyle = 'white'
 c.fillRect(0 , 0 , canvas.width , canvas.height)
 
 const collisionsMap = []
-for (let i = 0 ; i < collisions.length; i += 70) {
-    collisionsMap.push(collisions.slice(i , i +70))
+for (let i = 0 ; i < collisions.length; i += 100) {
+    collisionsMap.push(collisions.slice(i , i +100))
 }
 
 class Boundary {
-    static width = 48
-    static height = 48
+    static width = 36
+    static height = 36
     constructor({position}) {
         this.position = position
-        this.width = 48
-        this.height = 48
+        this.width = 36
+        this.height = 36
     }
     draw() {
         c.fillStyle = 'rgba(255,0,0,0)'
@@ -28,13 +28,13 @@ class Boundary {
 const boundaries = []
 
 const offset = {
-    x: -728,
-    y: -650
+    x: -1513,
+    y: -2125
 }
 
 collisionsMap.forEach((row , i) => {
     row.forEach((symbol , j) => {
-        if (symbol === 1025){
+        if (symbol === 5264){
         boundaries.push(
             new Boundary ({
                 position: {
@@ -46,7 +46,7 @@ collisionsMap.forEach((row , i) => {
 })
 
 const image = new Image()
-image.src = './imgs/Pellet Town.png'
+image.src = './imgs/Final_Map_300.png'
 
 const playerDownImage = new Image()
 playerDownImage.src = './imgs/playerDown.png'
@@ -61,7 +61,7 @@ const playerRightImage = new Image()
 playerRightImage.src = './imgs/playerRight.png'
 
 const foregroundimage = new Image()
-foregroundimage.src = './imgs/foregroundObjects.png'
+foregroundimage.src = './imgs/Map_foreground_300.png'
  
 
 class Sprite {
@@ -317,4 +317,3 @@ window.addEventListener('keyup' , (e) => {
         
     }
 })
-
