@@ -48,27 +48,38 @@ collisionsMap.forEach((row , i) => {
 const image = new Image()
 image.src = './imgs/Pellet Town.png'
 
-const playerImage = new Image()
+const playerDownImage = new Image()
 playerImage.src = './imgs/playerDown.png'
+
+const playerUpImage = new Image()
+playerImage.src = './imgs/playerUp.png'
+
+const playerLeftImage = new Image()
+playerImage.src = './imgs/playerLeft.png'
+
+const playerRightImage = new Image()
+playerImage.src = './imgs/playerRight.png'
 
 const foregroundimage = new Image()
 foregroundimage.src = './imgs/foregroundObjects.png'
  
 
 class Sprite {
-    constructor({position , velocity , _image , frames = {max: 1}}) {
+    constructor({position , velocity , _image , frames = {max: 1}, sprites}) {
         this.position = position
         this.image = _image
-        this.frames = frames
+        this.frames = {...rames,val:0,elapsed:0}
         this.image.onload = () => {
             this.width = this.image.width/ this.frames.max
             this.height = this.image.height/ this.frames.max
         }
+        this.moving=false
+        this.sprites=sprites
     }
 
     draw() {
         c.drawImage(this.image,
-             0 ,
+             this.frames.val*this.width,
              0 ,
              this.image.width/this.frames.max ,
              this.image.height ,
@@ -76,7 +87,16 @@ class Sprite {
              this.position.y,
              this.image.width/this.frames.max ,
              this.image.height 
-        );
+        )
+        if(this.moving) return
+
+        if(this.frames.max>1){
+          this.frames.elapsed++
+        }
+        if(this.frames.elapsed%10==0){
+        if(this.frames.val<this.frames.max-1) this.frames.val++
+        else this.frames.val=0
+        }
     }
 }
 
@@ -85,8 +105,15 @@ const player = new Sprite({
         x : canvas.width/2 - 192/8,
         y : canvas.height/2 - 68/2
     },
-    _image : playerImage,
-    frames : {max: 4}
+    _image : playerDownImage,
+    frames : {max: 4},
+    sprites:{
+      up:playerUpImage,
+      left:playerLeftImage,
+      right:playerRightImage,
+      down:playerDownImage,
+
+    }
 })
 
 const background = new Sprite({
@@ -140,7 +167,10 @@ function animate(){
     foreground.draw()
     
     let moving = true
+    player.moving=false
     if (keys.w.pressed && lastKey === 'w') {
+      player.moving=true
+      player.image=player.sprites.up
         for (let i =0; i < boundaries.length ; i++) {
         const boundary = boundaries[i]
         if (
@@ -163,7 +193,9 @@ function animate(){
     
     
     else if (keys.a.pressed && lastKey === 'a') {
-        for (let i =0; i < boundaries.length ; i++) {
+      player.moving=true
+      player.image=player.sprites.left  
+      for (let i =0; i < boundaries.length ; i++) {
             const boundary = boundaries[i]
             if (
                 rectangularCollision({
@@ -184,7 +216,9 @@ function animate(){
             })
     }}
     else if (keys.s.pressed && lastKey === 's') {
-        for (let i =0; i < boundaries.length ; i++) {
+      player.moving=true
+      player.image=player.sprites.down  
+      for (let i =0; i < boundaries.length ; i++) {
         const boundary = boundaries[i]
         if (
             rectangularCollision({
@@ -205,7 +239,9 @@ function animate(){
         })}
     }
     else if (keys.d.pressed && lastKey === 'd') {
-        for (let i =0; i < boundaries.length ; i++) {
+      player.moving=true  
+      player.image=player.sprites.right
+      for (let i =0; i < boundaries.length ; i++) {
             const boundary = boundaries[i]
             if (
                 rectangularCollision({
@@ -276,7 +312,3 @@ window.addEventListener('keyup' , (e) => {
         
     }
 })
-
-
- 
- 
