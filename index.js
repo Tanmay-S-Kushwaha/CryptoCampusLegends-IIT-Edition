@@ -7,8 +7,11 @@ c.fillStyle = 'white'
 c.fillRect(0 , 0 , canvas.width , canvas.height)
 
 const collisionsMap = []
+const nftMap = []
+let nftTouch = [false]
 for (let i = 0 ; i < collisions.length; i += 100) {
     collisionsMap.push(collisions.slice(i , i +100))
+    nftMap.push(NFTlayer.slice(i , i + 100))
 }
 
 class Boundary {
@@ -23,9 +26,14 @@ class Boundary {
         c.fillStyle = 'rgba(255,0,0,0)'
         c.fillRect(this.position.x , this.position.y , this.width , this.height)
     }
+    new_draw() {
+        c.fillStyle = 'blue'
+        c.fillRect(this.position.x , this.position.y , this.width , this.height)
+    }
 }
 
 const boundaries = []
+const nftBoundaries = []
 
 const offset = {
     x: -1513,
@@ -36,6 +44,19 @@ collisionsMap.forEach((row , i) => {
     row.forEach((symbol , j) => {
         if (symbol === 5264){
         boundaries.push(
+            new Boundary ({
+                position: {
+                    x: j * Boundary.width + offset.x,
+                    y: i * Boundary.height + offset.y
+                }
+        }))}
+    })
+})
+
+nftMap.forEach((row , i) => {
+    row.forEach((symbol , j) => {
+        if (symbol === 1390){
+        nftBoundaries.push(
             new Boundary ({
                 position: {
                     x: j * Boundary.width + offset.x,
@@ -146,7 +167,7 @@ const keys = {
     },
 }
 
-const movables = [background , ...boundaries,foreground]
+const movables = [background , ...boundaries,foreground , ...nftBoundaries]
 
 function rectangularCollision({ rectangle1 , rectangle2}) {
     return(
@@ -162,6 +183,9 @@ function animate(){
     background.draw()
     boundaries.forEach((boundary) => {
         boundary.draw()
+    })
+    nftBoundaries.forEach((boundary) => {
+        boundary.new_draw()
     })
     player.draw()
     foreground.draw()
@@ -186,11 +210,33 @@ function animate(){
                 moving = false
                 break
             }}
+            
+            if(moving) {
+                movables.forEach((movable) => {
+                movable.position.y += 3
+                })}
+
+            for (let i =0; i < boundaries.length ; i++) {
+                const nftBoundary = nftBoundaries[i]
+                if (
+                    rectangularCollision({
+                        rectangle1: player,
+                        rectangle2: {...nftBoundary , position: {
+                            x: nftBoundary.position.x,
+                            y: nftBoundary.position.y + 3
+                        }}
+                    })
+                    ){
+                        if (nftTouch.slice(-1) !== true){
+                            nftTouch.push(true)}
+                            break
+                    }
+                else {
+                    nftTouch.push(false)
+                }
+                }
+                }
         
-        if(moving) {
-            movables.forEach((movable) => {
-            movable.position.y += 3
-            })}}
     
     
     else if (keys.a.pressed && lastKey === 'a') {
@@ -215,8 +261,27 @@ function animate(){
             if(moving) {
             movables.forEach((movable) => {
             movable.position.x += 3
-            })
-    }}
+            })}
+        
+            for (let i =0; i < boundaries.length ; i++) {
+                const nftBoundary = nftBoundaries[i]
+                if (
+                    rectangularCollision({
+                        rectangle1: player,
+                        rectangle2: {...nftBoundary , position: {
+                            x: nftBoundary.position.x,
+                            y: nftBoundary.position.y + 3
+                        }}
+                    })
+                    ){
+                        if (nftTouch.slice(-1) !== true){
+                            nftTouch.push(true)}
+                            break
+                    }
+                    else {
+                        nftTouch.push(false)
+                    }}
+}
     else if (keys.s.pressed && lastKey === 's') {
         player.animate=true
       
@@ -241,6 +306,24 @@ function animate(){
             movables.forEach((movable) => {
             movable.position.y -= 3
         })}
+        for (let i =0; i < boundaries.length ; i++) {
+            const nftBoundary = nftBoundaries[i]
+            if (
+                rectangularCollision({
+                    rectangle1: player,
+                    rectangle2: {...nftBoundary , position: {
+                        x: nftBoundary.position.x,
+                        y: nftBoundary.position.y + 3
+                    }}
+                })
+                ){
+                    if (nftTouch.slice(-1) !== true){
+                        nftTouch.push(true)}
+                        break
+                }
+                else {
+                    nftTouch.push(false)
+                }}
     }
     else if (keys.d.pressed && lastKey === 'd') {
         player.animate=true
@@ -266,7 +349,24 @@ function animate(){
             movable.position.x -= 3
         })
     }
-}}
+    for (let i =0; i < boundaries.length ; i++) {
+        const nftBoundary = nftBoundaries[i]
+        if (
+            rectangularCollision({
+                rectangle1: player,
+                rectangle2: {...nftBoundary , position: {
+                    x: nftBoundary.position.x,
+                    y: nftBoundary.position.y + 3
+                }}
+            })
+            ){  if (nftTouch.slice(-1) !== true){
+                nftTouch.push(true)}
+                break
+            }
+            else {
+                nftTouch.push(false)
+            }}
+} console.log(nftTouch.slice(-1))}
 
 animate()
 
