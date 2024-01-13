@@ -1,9 +1,55 @@
 <style>
+    @font-face {
+        font-family: "pokemon";
+        src: url("PKMN\ RBYGSC.ttf");
+    }
     body {
         background-color: black;
+        position: relative;
+    }
+    canvas{
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 76px;
+    }
+
+    .dialogue{
+        position: absolute;
+        background-color: rgb(255, 200, 166);
+        color: black;
+        bottom: 20px;
+        right: 600px;
+        left:80px;
+        top:540px;
+        z-index: 100;
+        border-radius: 20px;
+        font-size: 20px;
+        font-family: "pokemon";
+        padding-top: 10px;
+        display: none;
+    }
+    button{
+        font-family: "pokemon";
+        display: block;
+        margin-top: 50px;
+        margin-left: 650px;
+        font-size: 20px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 10px;
+        padding-right: 10px;
+        border-radius: 10px;
     }
 </style><body align = 'center'>
+
 <canvas></canvas>
+<div id="messageBox">Yah!! u have found an NFT at RJB...
+    <button class="mint">Mint NFT</button>
+</div>
+
 <script src = "Collision.js"></script>
 <script src = "index.js"></script>
+<script src="popup.js"></script>
 </body>
