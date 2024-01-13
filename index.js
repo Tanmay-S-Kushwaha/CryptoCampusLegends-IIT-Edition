@@ -49,31 +49,31 @@ const image = new Image()
 image.src = './imgs/Pellet Town.png'
 
 const playerDownImage = new Image()
-playerImage.src = './imgs/playerDown.png'
+playerDownImage.src = './imgs/playerDown.png'
 
 const playerUpImage = new Image()
-playerImage.src = './imgs/playerUp.png'
+playerUpImage.src = './imgs/playerUp.png'
 
 const playerLeftImage = new Image()
-playerImage.src = './imgs/playerLeft.png'
+playerLeftImage.src = './imgs/playerLeft.png'
 
 const playerRightImage = new Image()
-playerImage.src = './imgs/playerRight.png'
+playerRightImage.src = './imgs/playerRight.png'
 
 const foregroundimage = new Image()
 foregroundimage.src = './imgs/foregroundObjects.png'
  
 
 class Sprite {
-    constructor({position , velocity , _image , frames = {max: 1}, sprites}) {
+    constructor({position , velocity , _image , frames = {max: 1}, sprites,animate=false}) {
         this.position = position
         this.image = _image
-        this.frames = {...rames,val:0,elapsed:0}
+        this.frames = {...frames,val:0,elapsed:0}
         this.image.onload = () => {
             this.width = this.image.width/ this.frames.max
             this.height = this.image.height/ this.frames.max
         }
-        this.moving=false
+        this.animate=animate
         this.sprites=sprites
     }
 
@@ -88,7 +88,7 @@ class Sprite {
              this.image.width/this.frames.max ,
              this.image.height 
         )
-        if(this.moving) return
+        if(!this.animate) return
 
         if(this.frames.max>1){
           this.frames.elapsed++
@@ -166,11 +166,12 @@ function animate(){
     player.draw()
     foreground.draw()
     
-    let moving = true
-    player.moving=false
+    let  moving = true
+    player.animate=false
     if (keys.w.pressed && lastKey === 'w') {
-      player.moving=true
-      player.image=player.sprites.up
+        player.animate=true
+        player.image=player.sprites.up
+      
         for (let i =0; i < boundaries.length ; i++) {
         const boundary = boundaries[i]
         if (
@@ -193,7 +194,8 @@ function animate(){
     
     
     else if (keys.a.pressed && lastKey === 'a') {
-      player.moving=true
+        player.animate=true
+      
       player.image=player.sprites.left  
       for (let i =0; i < boundaries.length ; i++) {
             const boundary = boundaries[i]
@@ -216,8 +218,10 @@ function animate(){
             })
     }}
     else if (keys.s.pressed && lastKey === 's') {
-      player.moving=true
-      player.image=player.sprites.down  
+        player.animate=true
+      
+      player.image=player.sprites.down
+        
       for (let i =0; i < boundaries.length ; i++) {
         const boundary = boundaries[i]
         if (
@@ -239,8 +243,9 @@ function animate(){
         })}
     }
     else if (keys.d.pressed && lastKey === 'd') {
-      player.moving=true  
+        player.animate=true
       player.image=player.sprites.right
+      
       for (let i =0; i < boundaries.length ; i++) {
             const boundary = boundaries[i]
             if (
