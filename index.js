@@ -27,7 +27,7 @@ class Boundary {
         c.fillRect(this.position.x , this.position.y , this.width , this.height)
     }
     new_draw() {
-        c.fillStyle = 'blue'
+        c.fillStyle = 'rgba(0,0,255,0)'
         c.fillRect(this.position.x , this.position.y , this.width , this.height)
     }
 }
@@ -67,7 +67,7 @@ nftMap.forEach((row , i) => {
 })
 
 const image = new Image()
-image.src = './imgs/Final_Map_300.png'
+image.src = './imgs/PelletTown.png'
 
 const playerDownImage = new Image()
 playerDownImage.src = './imgs/playerDown.png'
@@ -176,6 +176,16 @@ function rectangularCollision({ rectangle1 , rectangle2}) {
     rectangle1.position.y <= rectangle2.position.y + rectangle2.height &&
     rectangle1.position.y + rectangle1.height >= rectangle2.position.y
     )
+}
+function setDivDisplay(isVisible) {
+    // Assuming you have a div with the id "yourDivId", replace it with your actual div id
+    const myDiv = document.getElementById("dialogue");
+
+    if (isVisible) {
+        myDiv.style.display = "block";
+    } else {
+        myDiv.style.display = "none";
+    }
 }
 
 function animate(){
@@ -366,7 +376,9 @@ function animate(){
             else {
                 nftTouch.push(false)
             }}
-} console.log(nftTouch.slice(-1))}
+} console.log(nftTouch.slice(-1))
+setDivDisplay(nftTouch.slice(-1)[0]);
+}
 
 animate()
 
