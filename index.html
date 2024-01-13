@@ -1,7 +1,7 @@
 <style>
     @font-face {
         font-family: "pokemon";
-        src: url("PKMN\ RBYGSC.ttf");
+        src: url("./PKMN RBYGSC.ttf");
     }
     body {
         background-color: black;
@@ -15,7 +15,7 @@
         bottom: 76px;
     }
 
-    .dialogue{
+    #dialogue{
         position: absolute;
         background-color: rgb(255, 200, 166);
         color: black;
@@ -45,11 +45,15 @@
 </style><body align = 'center'>
 
 <canvas></canvas>
-<div id="messageBox">Yah!! u have found an NFT at RJB...
-    <button class="mint">Mint NFT</button>
+<div id="dialogue">Yah!! u have found an NFT at RJB...
+    <button id="connectButton">Mint NFT</button>
 </div>
 
 <script src = "Collision.js"></script>
+<script src="NFTlayer.js"></script>
+<script src="fundme.js"  type="module"></script>
 <script src = "index.js"></script>
-<script src="popup.js"></script>
+<!-- <script src="popup.js"></script> -->
+
+
 </body>
