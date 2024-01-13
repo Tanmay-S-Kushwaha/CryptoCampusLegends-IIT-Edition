@@ -3,6 +3,39 @@
         font-family: "pokemon";
         src: url("./PKMN RBYGSC.ttf");
     }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+    .pulsing-image {
+      border-radius: 50%; /* To make it circular, adjust as needed */
+      overflow: hidden;
+      animation: pulse 2s infinite; /* Adjust animation duration as needed */
+      margin-bottom: -70;
+      display: block;
+    }
+    .container {
+    }
+    .LoadScreen {
+        display : flex;
+        justify-content: center;
+        align-items: center;
+        background-image: url("Load\ Screen.png");
+    }
+    .pulsing-image img {
+      width: 80%;
+      height: 80%;
+      object-fit: cover;
+    }
+    .background-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      z-index: 1; /* Put the background image behind the pulsing image */
+    }
+
     body {
         background-color: black;
         position: relative;
@@ -13,6 +46,7 @@
         left: 0;
         right: 0;
         bottom: 76px;
+        display: none;
     }
 
     #dialogue{
@@ -42,10 +76,16 @@
         padding-right: 10px;
         border-radius: 10px;
     }
-</style><body align = 'center'>
+</style><body id = 'change' align = 'center' background = "Load Screen.png">
 
-<canvas></canvas>
-<div id="dialogue">Yah!! u have found an NFT at RJB...
+<canvas class = "container"></canvas>
+<div class="pulsing-image">
+    <img src="Pulsing_Text.png" alt="Pulsing Image">
+</div>
+ 
+<div class = "pulsing-image"><button onclick = start()>START</button></div>
+
+<div id="dialogue">Yah!!! u have found a Pokemon NFT...
     <button id="connectButton">Mint NFT</button>
 </div>
 
@@ -53,6 +93,28 @@
 <script src="NFTlayer.js"></script>
 <script src="fundme.js"  type="module"></script>
 <script src = "index.js"></script>
+<script>
+    let click = false;
+
+    function start() {
+        click = true;
+        document.getElementById("change").style.background = "black";
+        const mydivs = document.getElementsByClassName("pulsing-image");
+
+        if (click) {
+            for (let i = 0; i < mydivs.length; i++) {
+                mydivs[i].style.display = "none";
+            }
+        }
+        const yourdivs = document.getElementsByClassName("container");
+
+        if (click) {
+            for (let i = 0; i < yourdivs.length; i++) {
+                yourdivs[i].style.display = "block";
+            }
+        }
+    }
+</script>
 <!-- <script src="popup.js"></script> -->
 
 
