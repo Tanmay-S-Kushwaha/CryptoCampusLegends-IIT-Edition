@@ -376,7 +376,7 @@ function animate(){
             else {
                 nftTouch.push(false)
             }}
-} console.log(nftTouch.slice(-1))
+} 
 setDivDisplay(nftTouch.slice(-1)[0]);
 }
 
