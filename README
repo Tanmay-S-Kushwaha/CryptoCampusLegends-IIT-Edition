@@ -1,0 +1,66 @@
+# CyptoCampusLegends: IIT edition
+## A Non Fungible Team Project
+
+
+Team Members: 
+Tanmay Singh Kushwaha
+Shourya Chaudhry
+Deenank Sharma
+Sambhav Jain
+
+_________________________________________________________________________
+
+
+Our Project "CyptoCampusLegends: IIT edition" is a RPG , fun and interactive scavenger-hunt game based on Pokemon and Blockchain. In this, a player hunts for Pokemon (or Pokemon Based NFTs)
+
+The NFTs are hidden all across a custom-designed IIT Roorkee Campus.
+
+A true Pokemon Master never rests until he catches them all.
+
+Are you up to the task.......?
+
+_________________________________________________________________________
+INSTRUCTIONS:
+Arrange the files in exactly this order in your folder:
+One Main Folder:
+1. Subfolder 'imgs':
+     Map_foreground_300.png
+     PelletTown.png
+     playerDown.png
+   playerUp.png
+   playerLeft.png
+   playerRight.png
+
+2. subfolder 'nfts':
+     1.jpg
+   2.jpg
+   3.jpg
+   4.jpg
+   5.jpg
+   6.jpg
+   7.jpg
+3.Everything else in Main folder:
+  Collision.js
+constants.js
+ethers-5.6.esm.min.js
+fundme.js
+index.html
+index.js
+LoadScreen.png
+NFTlayer.js
+package-lock.json
+package.json
+PKMN RBYGSC.ttf
+popup.js
+Pulsing_Text.png
+wallet.js
+
+There are also some hardhat files:
+ShinchanNFT.sol
+Deploy.js
+Hardhat.config.js
+
+Smart Contract has been deployed on sepolia testnet via hardhat and is verified on etherscan
+Contract Address: 0xe98D2234495f5028Fe754671b6D944691470a66D4
+
+Link to YouTube Video Explanation: https://youtu.be/U62LQCeCYI8?si=jvxrdZCAgJB46_HC
